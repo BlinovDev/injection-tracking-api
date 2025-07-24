@@ -39,4 +39,32 @@ RSpec.describe 'Patients API', type: :request do
       end
     end
   end
+
+  path '/api/v1/patients/{id}' do
+    get 'Show a patient' do
+      tags 'Patients'
+      produces 'application/json'
+      parameter name: :id, in: :path, type: :string, description: 'Patient ID'
+
+      response '200', 'patient found' do
+        schema type: :object,
+               properties: {
+                 id: { type: :integer },
+                 name: { type: :string },
+                 api_key: { type: :string }
+               },
+               required: ['id', 'name', 'api_key']
+
+        let(:id) { Patient.create(name: 'Alice').id }
+
+        run_test!
+      end
+
+      response '404', 'patient not found' do
+        let(:id) { 'invalid' }
+
+        run_test!
+      end
+    end
+  end
 end
