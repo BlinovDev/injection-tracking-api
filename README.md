@@ -13,6 +13,8 @@ This project is a RESTful API for tracking medication injections for patients, b
 
 The API is suitable for integration with mobile apps, research dashboards, or clinical systems that require robust injection tracking and adherence analytics.
 
+For manual testing feel free to import `injection-tracking-api.postman_collection.json` into your postman and use it. All main application functions are present there.
+
 ## Run with Docker
 ```bash
   docker-compose build

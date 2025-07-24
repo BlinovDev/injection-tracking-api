@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "78896c3a-a43a-4fd3-95cd-d23e48c15d07",
+		"name": "injection-tracking-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28630226"
+	},
+	"item": [
+		{
+			"name": "Create Patient",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"patient\": {\n        \"name\": \"Bob Test\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/patients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"patients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Patient",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/patients/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"patients",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Injection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 5498813d1abc4c7dccd8"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"injection\": {\n        \"dose\": 10,\n        \"lot_number\": \"#11113\",\n        \"drug_name\": \"Adynovate\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/patients/1/injections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"patients",
+						"1",
+						"injections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adherence",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 5498813d1abc4c7dccd8"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/patients/1/adherence?drug_name=Adynovate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"patients",
+						"1",
+						"adherence"
+					],
+					"query": [
+						{
+							"key": "drug_name",
+							"value": "Adynovate"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Injections schedule",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 5498813d1abc4c7dccd8"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/patients/1/injections_schedule?drug_name=Adynovate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"patients",
+						"1",
+						"injections_schedule"
+					],
+					"query": [
+						{
+							"key": "drug_name",
+							"value": "Adynovate"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
