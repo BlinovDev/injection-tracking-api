@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :patients, only: [:create, :show] do
         resources :injections, only: [:create]
+
+        get :adherence, to: "patients/analytics#adherence"
+        get :injections_schedule, to: "patients/analytics#injections_schedule"
       end
     end
   end
