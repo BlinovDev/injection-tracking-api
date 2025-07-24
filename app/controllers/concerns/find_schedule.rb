@@ -18,7 +18,7 @@ module FindSchedule
       render json: { error: "Missing drug_name parameter" }, status: :bad_request and return
     end
 
-    @schedule = Patient.find(params[:patient_id]).schedules.find_by(drug_name: drug_name)
+    @schedule = @current_patient.schedules.find_by(drug_name: drug_name)
 
     unless @schedule
       render json: { error: "No schedule found for drug_name: #{drug_name}" }, status: :not_found

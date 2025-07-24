@@ -2,6 +2,7 @@ module Api
   module V1
     module Patients
       class AnalyticsController < ApplicationController
+        include Authentication
         include FindSchedule
 
         def adherence

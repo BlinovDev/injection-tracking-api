@@ -1,6 +1,7 @@
 module Api
   module V1
     class InjectionsController < ApplicationController
+      include Authentication
       include FindSchedule
 
       def create
