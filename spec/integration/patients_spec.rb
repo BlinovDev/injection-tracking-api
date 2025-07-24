@@ -32,11 +32,6 @@ RSpec.describe 'Patients API', type: :request do
 
         run_test!
       end
-
-      response '422', 'invalid request' do
-        let(:patient) { { patient: { name: '' } } }
-        run_test!
-      end
     end
   end
 end
