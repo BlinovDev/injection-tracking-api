@@ -29,3 +29,8 @@ To run specs open another terminal window and run:
 ```bash
   docker-compose run web bundle exec rspec
 ```
+
+To access rails console run:
+```bash
+  docker-compose run web bundle exec rails c
+```

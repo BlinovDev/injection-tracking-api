@@ -23,7 +23,7 @@ class Schedule < ApplicationRecord
       expected_injections: expected_dates.size,
       actual_injections: actual_dates.size,
       on_time_injections: on_time,
-      adherence_score: expected_dates.any? ? (on_time.to_f / expected_dates.size * 100).round : 0
+      adherence_score: expected_dates.any? ? (on_time.to_f / actual_dates.size * 100).round : 0
     }
   end
 
