@@ -4,6 +4,188 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/patients/{patient_id}/adherence":
+    get:
+      summary: Patient adherence statistics
+      tags:
+      - Patients
+      parameters:
+      - name: patient_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: drug_name
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer API key
+        schema:
+          type: string
+      responses:
+        '200':
+          description: statistics retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  drug_name:
+                    type: string
+                  interval_in_days:
+                    type: integer
+                  starts_on:
+                    type: string
+                    format: date
+                  expected_injections:
+                    type: integer
+                  actual_injections:
+                    type: integer
+                  on_time_injections:
+                    type: integer
+                  adherence_score:
+                    type: number
+                required:
+                - drug_name
+                - interval_in_days
+                - starts_on
+                - expected_injections
+                - actual_injections
+                - on_time_injections
+                - adherence_score
+        '404':
+          description: schedule not found
+  "/api/v1/patients/{patient_id}/injections_schedule":
+    get:
+      summary: Patient injections schedule
+      tags:
+      - Patients
+      parameters:
+      - name: patient_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: drug_name
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer API key
+        schema:
+          type: string
+      responses:
+        '200':
+          description: schedule retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  drug_name:
+                    type: string
+                  interval_in_days:
+                    type: integer
+                  starts_on:
+                    type: string
+                    format: date
+                  injections:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        drug_name:
+                          type: string
+                        dose:
+                          type: number
+                        lot_number:
+                          type: string
+                        injected_at:
+                          type: string
+                          format: date-time
+                      required:
+                      - id
+                      - drug_name
+                      - dose
+                      - lot_number
+                      - injected_at
+                required:
+                - drug_name
+                - interval_in_days
+                - starts_on
+                - injections
+  "/api/v1/patients/{patient_id}/injections":
+    post:
+      summary: Create an injection
+      tags:
+      - Injections
+      parameters:
+      - name: patient_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer API key
+        schema:
+          type: string
+      responses:
+        '201':
+          description: injection created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  drug_name:
+                    type: string
+                  dose:
+                    type: number
+                  lot_number:
+                    type: string
+                  injected_at:
+                    type: string
+                    format: date-time
+                required:
+                - id
+                - drug_name
+                - dose
+                - lot_number
+                - injected_at
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                injection:
+                  type: object
+                  properties:
+                    drug_name:
+                      type: string
+                    dose:
+                      type: number
+                    lot_number:
+                      type: string
+                  required:
+                  - drug_name
+                  - dose
+                  - lot_number
   "/api/v1/patients":
     post:
       summary: Create a patient
@@ -43,6 +225,55 @@ paths:
                       type: string
                   required:
                   - name
+  "/api/v1/patients/{id}":
+    get:
+      summary: Show a patient
+      tags:
+      - Patients
+      parameters:
+      - name: id
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: patient found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  api_key:
+                    type: string
+                required:
+                - id
+                - name
+                - api_key
+        '404':
+          description: patient not found
+  "/ping":
+    get:
+      summary: Ping the service
+      tags:
+      - Health
+      responses:
+        '200':
+          description: service alive
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                - status
 servers:
 - url: https://{defaultHost}
   variables:
